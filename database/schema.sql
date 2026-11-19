@@ -1,6 +1,16 @@
 -- =============================================================
 -- KARÉLLE — Modeling Course | Database Schema
 -- Database : kar_class_db (PostgreSQL 14+)
+-- =============================================================
+-- Cara menjalankan (pgAdmin):
+--   1. Buat database bernama kar_class_db.
+--   2. Klik kanan kar_class_db > Query Tool.
+--   3. Buka file ini, lalu Execute (F5).
+--   4. Setelah itu jalankan seed.sql.
+--
+-- PERINGATAN: file ini MENGHAPUS semua tabel lalu membuatnya ulang.
+-- Seluruh data lama akan hilang. Jalankan ulang seed.sql sesudahnya.
+-- =============================================================
 
 BEGIN;
 
@@ -35,7 +45,8 @@ DROP FUNCTION IF EXISTS trg_check_certificate_eligibility() CASCADE;
 
 
 -- =============================================================
--- 1. TABEL AUTENTIKASI 
+-- 1. TABEL AUTENTIKASI (mengikuti skema Better Auth 1.7)
+--    ID bertipe TEXT karena dibuat oleh Better Auth.
 -- =============================================================
 
 CREATE TABLE users (
