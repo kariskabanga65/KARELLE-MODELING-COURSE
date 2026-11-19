@@ -15,7 +15,7 @@ export function LoginForm({ callbackUrl }) {
       <FormField label="Email" name="email" type="email" autoComplete="email" required error={state?.fieldErrors?.email} defaultValue={state?.values?.email} />
       <FormField label="Password" name="password" type="password" autoComplete="current-password" required error={state?.fieldErrors?.password} />
       <div className="text-right text-sm">
-        <Link href="/forgot-password" className="text-[#7a1f3d] hover:underline">
+        <Link href="/forgot-password" className="text-foreground underline-offset-4 hover:underline">
           Lupa password?
         </Link>
       </div>

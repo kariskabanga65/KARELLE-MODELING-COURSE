@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { registerStudentAction, registerTeacherAction } from "@/actions/auth-actions";
+import { NativeSelect } from "@/components/ui/native-select";
 import { FormField, FormMessage, SubmitButton } from "./form-field";
 
 export function RegisterForm({ variant = "student", categories = [] }) {
@@ -12,7 +13,7 @@ export function RegisterForm({ variant = "student", categories = [] }) {
   const values = state?.values ?? {};
 
   return (
-    <form action={formAction} className="space-y-4" noValidate>
+    <form action={formAction} className="space-y-5" noValidate>
       <FormMessage state={state} />
       <FormField label="Nama lengkap" name="name" autoComplete="name" required error={errors.name} defaultValue={values.name} />
       <FormField label="Username" name="username" autoComplete="username" placeholder="contoh: rina.kartika" required error={errors.username} defaultValue={values.username} />
@@ -23,14 +24,13 @@ export function RegisterForm({ variant = "student", categories = [] }) {
       {isTeacher && (
         <>
           <FormField label="Bidang keahlian" name="expertise" error={errors.expertise}>
-            <select
+            <NativeSelect
               id="expertise"
               name="expertise"
               required
               key={values.expertise ?? "empty"}
               defaultValue={values.expertise ?? ""}
               aria-invalid={Boolean(errors.expertise)}
-              className="w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm"
             >
               <option value="" disabled>
                 Pilih bidang kursus
@@ -40,7 +40,7 @@ export function RegisterForm({ variant = "student", categories = [] }) {
                   {category.name}
                 </option>
               ))}
-            </select>
+            </NativeSelect>
           </FormField>
           <FormField label="Pengalaman" name="experience" as="textarea" rows={3} required error={errors.experience} defaultValue={values.experience} />
           <FormField label="Motivasi mengajar" name="motivation" as="textarea" rows={3} required error={errors.motivation} defaultValue={values.motivation} />

@@ -9,15 +9,15 @@ export default async function RegisterTeacherPage() {
 
   return (
     <div className="space-y-6">
-      <div className="text-center">
-        <h1 className="text-xl font-semibold">Daftar sebagai Teacher</h1>
-        <p className="text-sm text-neutral-500">
+      <div className="space-y-2">
+        <h1 className="font-display text-4xl">Daftar sebagai Teacher</h1>
+        <p className="text-sm text-muted-foreground">
           Akun Anda langsung aktif sebagai Student. Akses Teacher diberikan setelah Admin menyetujui pengajuan.
         </p>
       </div>
       <RegisterForm variant="teacher" categories={categories} />
-      <p className="text-center text-sm text-neutral-600">
-        Sudah punya akun? <Link href="/login" className="font-medium text-[#7a1f3d] hover:underline">Masuk</Link>
+      <p className="text-sm text-muted-foreground">
+        Sudah punya akun? <Link href="/login" className="font-medium text-foreground underline-offset-4 hover:underline">Masuk</Link>
       </p>
     </div>
   );
