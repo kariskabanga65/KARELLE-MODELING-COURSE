@@ -93,6 +93,7 @@ export const auth = betterAuth({
   databaseHooks: {
     user: {
       create: {
+        
         before: async (user) => {
           const username = String(user.username ?? "").trim().toLowerCase();
           if (!USERNAME_PATTERN.test(username)) {

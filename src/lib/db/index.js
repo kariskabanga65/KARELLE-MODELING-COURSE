@@ -1,18 +1,6 @@
 import "server-only";
 import { Pool } from "pg";
 
-/**
- * Koneksi PostgreSQL menggunakan connection pool dari package `pg`.
- *
- * - Pool dibuat SEKALI lalu dipakai ulang. Di mode development, Next.js
- *   memuat ulang modul setiap file berubah, jadi pool disimpan di
- *   globalThis agar tidak membuat koneksi baru terus-menerus.
- * - File ini hanya boleh dipakai di server (Server Component, Server
- *   Action, Route Handler). Import "server-only" memastikan file ini
- *   tidak pernah ikut terkirim ke browser.
- * - JANGAN di-import dari src/middleware.js.
- */
-
 function createPool() {
   if (!process.env.DATABASE_URL) {
     throw new Error(
@@ -54,20 +42,18 @@ if (process.env.NODE_ENV !== "production") {
  *
  *   await query(`SELECT * FROM courses WHERE id = '${courseId}'`);
  *
- * @param {string} text   SQL dengan placeholder $1, $2, ...
+ * @param {string} text  
  * @param {unknown[]} [params]
  */
 export async function query(text, params = []) {
   return pool.query(text, params);
 }
 
-/** Mengembalikan baris pertama, atau null jika tidak ada. */
 export async function queryOne(text, params = []) {
   const { rows } = await pool.query(text, params);
   return rows[0] ?? null;
 }
 
-/** Mengembalikan semua baris. */
 export async function queryMany(text, params = []) {
   const { rows } = await pool.query(text, params);
   return rows;

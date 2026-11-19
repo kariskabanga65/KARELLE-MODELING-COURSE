@@ -20,6 +20,12 @@ import {
   validationError,
 } from "@/lib/utils/action-result";
 
+/**
+ * Server Actions autentikasi.
+ * Semua proses (register, login, logout, reset password) dijalankan
+ * oleh Better Auth lewat auth.api. Tidak ada sistem login kedua.
+ * Plugin nextCookies() otomatis menyimpan cookie session.
+ */
 
 // ---------------------------------------------------------------
 // LOGIN
@@ -42,6 +48,7 @@ export async function loginAction(_prevState, formData) {
     return actionError(getAuthErrorMessage(error, "Login gagal. Silakan coba lagi."), {}, input);
   }
 
+  // redirect() harus dipanggil di luar try/catch.
   redirect(getSafeRedirectPath(callbackUrl, getDashboardPath(user.role)));
 }
 
@@ -67,6 +74,8 @@ export async function registerStudentAction(_prevState, formData) {
 
 // ---------------------------------------------------------------
 // REGISTER AS TEACHER
+// Akun dibuat dengan role STUDENT, lalu pengajuan Teacher disimpan
+// dengan status 'pending' sampai Admin menyetujui.
 // ---------------------------------------------------------------
 export async function registerTeacherAction(_prevState, formData) {
   const input = formDataToObject(formData);
@@ -92,6 +101,7 @@ export async function registerTeacherAction(_prevState, formData) {
       [user.id, expertise, experience, motivation],
     );
 
+    // Beri tahu semua Admin bahwa ada pengajuan baru.
     await query(
       `INSERT INTO notifications (user_id, type, title, message, link)
        SELECT id, 'system', 'Pengajuan Teacher baru',
@@ -133,6 +143,9 @@ export async function forgotPasswordAction(_prevState, formData) {
   } catch (error) {
     console.error("[auth] Gagal membuat tautan reset password:", error);
   }
+
+  // Pesan sengaja sama untuk email terdaftar maupun tidak, agar
+  // orang lain tidak bisa mengecek email siapa saja yang terdaftar.
   return actionSuccess(
     "Jika email terdaftar, tautan reset password telah dibuat. Tautan berlaku 1 jam.",
   );

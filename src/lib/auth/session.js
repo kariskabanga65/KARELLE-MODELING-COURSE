@@ -5,7 +5,6 @@ import { redirect } from "next/navigation";
 import { auth } from "./auth";
 import { ROLES } from "./roles";
 
-
 export const getSession = cache(async () => {
   return auth.api.getSession({ headers: await headers() });
 });
@@ -20,7 +19,6 @@ export async function requireUser() {
   if (!user) redirect("/login");
   return user;
 }
-
 
 export async function requireRole(...allowedRoles) {
   const user = await requireUser();

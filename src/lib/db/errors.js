@@ -1,14 +1,9 @@
-/**
- * Menerjemahkan error PostgreSQL menjadi pesan yang ramah pengguna.
- * Kode error: https://www.postgresql.org/docs/current/errcodes-appendix.html
- */
-
 const PG_ERROR = {
   UNIQUE_VIOLATION: "23505",
   FOREIGN_KEY_VIOLATION: "23503",
   CHECK_VIOLATION: "23514",
   NOT_NULL_VIOLATION: "23502",
-  INVALID_TEXT_REPRESENTATION: "22P02", // contoh: UUID tidak valid
+  INVALID_TEXT_REPRESENTATION: "22P02", 
 };
 
 const CONSTRAINT_MESSAGES = {
